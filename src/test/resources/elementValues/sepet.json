@@ -1,0 +1,36 @@
+[
+  {
+    "key": "Sepet Kontrol",
+    "type": "xpath",
+    "value": "//*[@id=\"cartItemCount\"]/label"
+  },
+  {
+    "key": "Sepetim1",
+    "type": "xpath",
+    "value": "//*[@id=\"shoppingCart\"]/span[1]"
+  },
+  {
+    "key": "Sepet Ozeti",
+    "type": "xpath",
+    "value": "//*[@id=\"short-summary\"]/div[1]/h2"
+  },
+  {
+    "key": "urunSil",
+    "type": "xpath",
+    "value": "//*[@id=\"form-item-list\"]/ul/li[1]/div/div[1]/div[3]/a[2]"
+  },
+  {
+    "key": "urunSil2",
+    "type": "css",
+    "value": ".btn-delete"
+  }
+,
+  {
+    "key": "hepsiBurada",
+    "type": "css",
+    "value": "#page > div.header-wrapper.is-cart > div.header-global.sfcontainer > a > span"
+  }
+
+
+
+]

@@ -1,0 +1,39 @@
+[
+  {
+    "key": "Uye Giris",
+    "type": "xpath",
+    "value": "//*[@id=\"myAccount\"]/a[2]"
+  },
+  {
+    "key": "Giris Yap",
+    "type": "xpath",
+    "value": "//*[@id=\"login\"]"
+  },
+  {
+    "key": "E-posta",
+    "type": "xpath",
+    "value": "//*[@id=\"email\"]"
+  },
+  {
+    "key": "UyeSifre",
+    "type": "xpath",
+    "value": "//*[@id=\"password\"]"
+  },
+  {
+    "key": "Giris Buton",
+    "type": "xpath",
+    "value": "//*[@id=\"form-login\"]/div[4]/button"
+  }
+,
+  {
+    "key": "Hesabım",
+    "type": "xpath",
+    "value": "//*[@id=\"myAccount\"]/a[1]"
+  },
+  {
+    "key": "Hesabım Text",
+    "type": "css",
+    "value": "#myAccount > a:nth-child(1)"
+  }
+
+]
