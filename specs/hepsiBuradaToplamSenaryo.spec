@@ -5,7 +5,7 @@ Created by testinium on 13.01.2020
 This is an executable specification file which follows markdown syntax.
 Every heading in this file denotes a scenario. Every bulleted point denotes a step.
      
-Hepsi Burada Toplam Senaryo
+Hepsi Burada Toplam Senaryo1
 --------------------------------------------------------------------------------
 *"https://www.hepsiburada.com/" sitesine git
 *"Uye Giris" Tıkla
@@ -59,3 +59,8 @@ Hepsi Burada Toplam Senaryo
 *"Adreslerim" alanına git
 *"Adresi Sil" butonuna tıkla
 *"Adresi Sil Onayla" butonuna tıkla
+
+
+deneme
+------
+*"5" saniye bekle
