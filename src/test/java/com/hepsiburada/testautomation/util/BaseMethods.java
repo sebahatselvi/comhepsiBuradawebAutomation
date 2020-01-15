@@ -1,47 +1,46 @@
 package com.hepsiburada.testautomation.util;
 
-        import com.hepsiburada.testautomation.base.BaseTest;
-        import com.hepsiburada.testautomation.helper.ElementHelper;
-        import com.hepsiburada.testautomation.helper.StoreHelper;
-        import com.hepsiburada.testautomation.model.ElementInfo;
-        import org.apache.log4j.Logger;
-        import org.junit.Assert;
-        import org.openqa.selenium.By;
-        import org.openqa.selenium.JavascriptExecutor;
-        import org.openqa.selenium.WebElement;
-        import org.openqa.selenium.interactions.Actions;
-        import org.openqa.selenium.support.ui.ExpectedConditions;
-        import org.openqa.selenium.support.ui.WebDriverWait;
+import com.hepsiburada.testautomation.base.BaseTest;
+import com.hepsiburada.testautomation.helper.ElementHelper;
+import com.hepsiburada.testautomation.helper.StoreHelper;
+import com.hepsiburada.testautomation.model.ElementInfo;
+import org.apache.log4j.Logger;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
 
-        import java.io.*;
-        import java.util.ArrayList;
-        import java.util.List;
-        import java.util.Random;
+import java.io.*;
+import java.time.Duration;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class BaseMethods extends BaseTest {
 
-    public WebDriverWait wait = new WebDriverWait(driver, 20);
-    final static Logger logger = Logger.getLogger(BaseMethods.class);
 
+    final static Logger logger = Logger.getLogger(BaseMethods.class);
     public WebElement findElementByKey(String key) {
         ElementInfo elementInfo = StoreHelper.INSTANCE.findElementInfoByKey(key);
         By infoParam = ElementHelper.getElementInfoToBy(elementInfo);
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 0);
-        WebElement webElement = webDriverWait
-                .until(ExpectedConditions.presenceOfElementLocated(infoParam));
-        ((JavascriptExecutor) driver).executeScript(
-                "arguments[0].scrollIntoView({behavior: 'smooth', block: 'center', inline: 'center'})",
-                webElement);
+        WebElement webElement=webDriverWait.until(ExpectedConditions.presenceOfElementLocated(infoParam));
         return webElement;
+
     }
 
     public List<WebElement> findElementsByKey(String key) {
+      //  waitForPageLoaded();
         ElementInfo elementInfo = StoreHelper.INSTANCE.findElementInfoByKey(key);
         By infoParam = ElementHelper.getElementInfoToBy(elementInfo);
         return driver.findElements(infoParam);
     }
 
-    public void clickToElement(WebElement element) {
+    public void clickToElement(String key) {
+        WebElement element = findElementByKey(key);
         try {
             logger.info("clickElement method called:  clicking " + element);
             element.click();
@@ -71,21 +70,12 @@ public class BaseMethods extends BaseTest {
         }
     }
 
-    public String getElementText(WebElement element) {
-        return element.getText();
-    }
-
-    public void elementineDegeriniGonder(WebElement element, String deger) {
-        try {
-            logger.info(element + " elementine " + deger + " degeri gonderildi");
-            element.sendKeys(deger);
-        } catch (Exception ex) {
-            logger.info(element + " elementine " + deger + " degeri gonderildi");
-            throw ex;
-        }
+    public void clickElementandwait(String key) {
+        WebElement element = findElementByKey(key);
+        element.click();
+        waitBySeconds(5);
 
     }
-
 
     public void sepetiTemizle(String key) throws InterruptedException {
         WebElement element;
@@ -101,7 +91,6 @@ public class BaseMethods extends BaseTest {
 
                 element.click();
                 driver.navigate().refresh();
-                Thread.sleep((5000));
 
             } else {
                 System.out.println("sepette ürün kalmadı");
@@ -110,33 +99,6 @@ public class BaseMethods extends BaseTest {
         }
     }
 
-    public void adresiTemizle2(String key, String key2) throws InterruptedException {
-        WebElement element;
-        WebElement element1;
-        while (true) {
-
-            try {
-                element = findElementByKey(key);
-                element1 = findElementByKey(key2);
-            } catch (Exception ex) {
-                element = null;
-                element1 = null;
-            }
-
-            if (element != null) {
-
-                element.click();
-                Thread.sleep((5000));
-                element1.click();
-                driver.navigate().refresh();
-                Thread.sleep((5000));
-
-            } else {
-                System.out.println("adresler silindi");
-                break;
-            }
-        }
-    }
 
     public void sepetiTemizleJS(String key) throws InterruptedException {
         List<WebElement> elementList = findElementsByKey(key);
@@ -190,9 +152,7 @@ public class BaseMethods extends BaseTest {
     public String cvsVeriOkuma(String dosyaAdi) {
 
         BufferedReader br = null;
-        String line = "";
         String[] kelime = null;
-        List lstdeneme = new ArrayList();
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(dosyaAdi), "UTF8"));
             String okunanveri = br.readLine();
@@ -201,7 +161,7 @@ public class BaseMethods extends BaseTest {
             System.out.println(ex.getMessage());
 
         }
-        return kelime[3];
+        return kelime[1];
     }
 
     public void elementKarsilastir(WebElement element, WebElement element2) {
@@ -213,18 +173,6 @@ public class BaseMethods extends BaseTest {
         }
     }
 
-    public void elementTextKarsilastir(String key1, String key2) {
-        WebElement element = findElementByKey(key1);
-        WebElement element1 = findElementByKey(key2);
-        try {
-            logger.info(element.getAttribute("value") + " elementi " + element1.getText() + " elementine eşit");
-            Assert.assertEquals(element.getAttribute("value"), element1.getText());
-        } catch (Exception ex) {
-            logger.info("değerler eşit değil");
-            throw ex;
-        }
-
-    }
 
     public void dropDownListtenSec(List<WebElement> elements) {
         Random random = new Random();
@@ -245,21 +193,37 @@ public class BaseMethods extends BaseTest {
         }
     }
 
-    public void rastgeleKategoriSec(String key) {
+    public void rastgeleKategoriSec(String key) throws InterruptedException {
         List<WebElement> elements = findElementsByKey(key);
         Random random = new Random();
-        int index = random.nextInt(elements.size());
-        if (index == 0) {
-            index = random.nextInt(elements.size());
-        }
-        try {
-            logger.info(elements.get(index).getText() + " kategorisine tıklandı");
-            elements.get(index).click();
-        } catch (Exception ex) {
-            logger.info(elements.get(index).getText() + " kategorisine tıklanamadı");
-        }
+       int index = random.nextInt(elements.size());
+       // int index=0;
+        String css="#elektronik > div > div > div > div.col.lg-3.col-md-3.col-sm-3.menus > ul > li> a";
+       if(index==0)
+       {
+           elements.get(index).click();
+         Thread.sleep(10000);
+           int index2=random.nextInt(findElementsByCssSelector(css).size());
+           WebElement element=findElementsByCssSelector(css).get(index2);
+           elementHover(element);
+           int index3=random.nextInt(findElementsByCssSelector("#menu-0 > ul > li > a").size());
+           WebElement element1=findElementsByCssSelector("#menu-0 > ul > li > a").get(index2);
+           element1.click();
 
+
+           Thread.sleep(10000);
+       }
+
+       else {
+           try {
+               logger.info(elements.get(index).getText() + " kategorisine tıklandı");
+               elements.get(index).click();
+           } catch (Exception ex) {
+               logger.info(elements.get(index).getText() + " kategorisine tıklanamadı");
+           }
+       }
     }
+
 
     public void rastgeleurunBulma(String key) {
         List<WebElement> elements = findElementsByKey(key);
@@ -309,5 +273,26 @@ public class BaseMethods extends BaseTest {
 
     }
 
+    public List<WebElement> findElementsByCssSelector(String key)
+    {
+        List<WebElement>elements=driver.findElements(By.cssSelector(key));
+        return elements;
+    }
+
+    public void deneme(String ana, String child1,String child2)
+    {
+        Random random=new Random();
+        ana="#elektronik";
+        child1="#elektronik > div > div > div > div.col.lg-3.col-md-3.col-sm-3.menus > ul > li> a";
+        child2="#menu-0 > ul > li> a";
+        int index2=random.nextInt(findElementsByCssSelector(child1).size());
+        int index3=random.nextInt(findElementsByCssSelector(child2).size());
+        WebElement anaelement=findElementsByCssSelector(ana).get(0);
+        WebElement child1element=findElementsByCssSelector(child1).get(index2);
+        WebElement child2element=findElementsByCssSelector(child2).get(index3);
+        anaelement.click();
+        elementHover(child1element);
+        child2element.click();
+    }
 }
 
