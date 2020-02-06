@@ -45,42 +45,10 @@ public class BaseTest {
     public void setUp(ExecutionContext executionContext) throws Exception{
 
         logger.info("" + executionContext.getCurrentScenario().getName());
-      /*  DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-       // if (StringUtils.isNotEmpty(getenv("key"))) {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("test-type");
-            options.addArguments("disable-popup-blocking");
-            options.addArguments("ignore-certificate-errors");
-            options.addArguments("disable-translate");
-            options.addArguments("--start-maximized");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-popup-blocking");
-            options.addArguments("test-type");
-            capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-            capabilities.setCapability("key", System.getenv("key"));
-            driver = new RemoteWebDriver(new URL("http://192.168.60.117:4444/wd/hub"), capabilities);
-            webDriverWait=new WebDriverWait(driver,20,250);
-            driver.get("https://www.hepsiburada.com/");
-            driver.manage().window().maximize();
-            driver.manage().deleteAllCookies();
-           // ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
-       // }
-        /* else {
-            System.setProperty("webdriver.chrome.driver", "web_driver/chromedriver");
-            ChromeOptions options = new ChromeOptions();
-//          options.addArguments("--kiosk");//FULLSCREEN FOR MAC
-            driver = new ChromeDriver(options);
-            webDriverWait=new WebDriverWait(driver,20,250);
-            driver.get("https://www.hepsiburada.com/");
-            driver.manage().window().maximize();
-            driver.manage().deleteAllCookies();
-        }*/
-
         FirefoxProfile profile = new FirefoxProfile();
         capabilities = DesiredCapabilities.firefox();
         capabilities.setCapability(FirefoxDriver.PROFILE,profile);
         capabilities.setCapability("marionette",true);
-
 
        /* ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
@@ -112,7 +80,6 @@ public class BaseTest {
         }
 
     }
-
     @AfterScenario
     public void tearDown(){
         driver.quit();
