@@ -1,7 +1,9 @@
 <testsuites>
-	<testsuite id="1" tests="1" failures="0" package="/Users/testinium/Desktop/hepsiBuradaWebAutomation/specs/hepsiBuradaToplamSenaryo.spec" time="171.884" timestamp="2020-01-15T10:36:11" name="Specification Heading" errors="0" hostname="Testinium-MacBook-Pro.local">
+	<testsuite id="1" tests="1" failures="1" package="/Users/testinium/Desktop/SEBOLENZO/ODEVLER/hepsiBuradaWebAutomation/specs/hepsiBuradaToplamSenaryo.spec" time="41.357" timestamp="2020-02-06T11:01:19" name="Specification Heading" errors="0" hostname="Testinium-MacBook-Pro.local">
 		<properties></properties>
-		<testcase classname="Specification Heading" name="Hepsi Burada Toplam Senaryo" time="171.884"></testcase>
+		<testcase classname="Specification Heading" name="Hepsi Burada Toplam Senaryo" time="41.357">
+			<failure message="&#34;Alt Kategori Sec&#34; alt kategori sec&#xA;Step Execution Failure: &#39;java.lang.IllegalArgumentException: bound must be positive&#39;" type="&#34;Alt Kategori Sec&#34; alt kategori sec&#xA;Step Execution Failure: &#39;java.lang.IllegalArgumentException: bound must be positive&#39;">java.util.Random.nextInt(Random.java:388)&#xA;com.hepsiburada.testautomation.util.BaseMethods.rastgeleSecimUrunvsMarkavsPagination(BaseMethods.java:131)&#xA;steps.hepsiBuradaSteps.kategoriAltMenu(hepsiBuradaSteps.java:65)&#xA;</failure>
+		</testcase>
 		<system-out></system-out>
 		<system-err></system-err>
 	</testsuite>

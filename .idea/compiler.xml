@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="hepsiBuradaWebAutomation" />
+        <module name="com.hepsiBurada.webAutomation" />
       </profile>
     </annotationProcessing>
   </component>

@@ -25,6 +25,7 @@ public class BaseMethods extends BaseTest {
 
     final static Logger logger = Logger.getLogger(BaseMethods.class);
     public WebElement findElementByKey(String key) {
+
         ElementInfo elementInfo = StoreHelper.INSTANCE.findElementInfoByKey(key);
         By infoParam = ElementHelper.getElementInfoToBy(elementInfo);
         WebElement webElement=webDriverWait.until(ExpectedConditions.presenceOfElementLocated(infoParam));
@@ -33,7 +34,6 @@ public class BaseMethods extends BaseTest {
     }
 
     public List<WebElement> findElementsByKey(String key) {
-      //  waitForPageLoaded();
         ElementInfo elementInfo = StoreHelper.INSTANCE.findElementInfoByKey(key);
         By infoParam = ElementHelper.getElementInfoToBy(elementInfo);
         return driver.findElements(infoParam);
@@ -93,7 +93,7 @@ public class BaseMethods extends BaseTest {
                 driver.navigate().refresh();
 
             } else {
-                System.out.println("sepette ürün kalmadı");
+               logger.info("Sepet Temizlendi");
                 break;
             }
         }
@@ -242,8 +242,7 @@ public class BaseMethods extends BaseTest {
             throw ex;
         }
     }
-
-
+    
     public void elementTextKarsilastir2(String key1, String key2) {
         WebElement element = findElementByKey(key1);
         WebElement element1 = findElementByKey(key2);

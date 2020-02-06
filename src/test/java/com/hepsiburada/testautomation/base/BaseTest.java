@@ -7,6 +7,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.LocalFileDetector;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -22,6 +24,7 @@ public class BaseTest {
     protected static WebDriver driver;
     protected static WebDriverWait webDriverWait;
     private static Logger logger = LoggerFactory.getLogger(BaseTest.class);
+    private DesiredCapabilities capabilities;
     public void waitForPageLoaded() {
         ExpectedCondition<Boolean> expectation = new
                 ExpectedCondition<Boolean>() {
@@ -42,8 +45,8 @@ public class BaseTest {
     public void setUp(ExecutionContext executionContext) throws Exception{
 
         logger.info("" + executionContext.getCurrentScenario().getName());
-        DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        if (StringUtils.isNotEmpty(getenv("key"))) {
+      /*  DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+       // if (StringUtils.isNotEmpty(getenv("key"))) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("test-type");
             options.addArguments("disable-popup-blocking");
@@ -55,9 +58,14 @@ public class BaseTest {
             options.addArguments("test-type");
             capabilities.setCapability(ChromeOptions.CAPABILITY, options);
             capabilities.setCapability("key", System.getenv("key"));
-            driver = new RemoteWebDriver(new URL("http://hub.testinium.io/wd/hub"), capabilities);
-            ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
-        } else {
+            driver = new RemoteWebDriver(new URL("http://192.168.60.117:4444/wd/hub"), capabilities);
+            webDriverWait=new WebDriverWait(driver,20,250);
+            driver.get("https://www.hepsiburada.com/");
+            driver.manage().window().maximize();
+            driver.manage().deleteAllCookies();
+           // ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+       // }
+        /* else {
             System.setProperty("webdriver.chrome.driver", "web_driver/chromedriver");
             ChromeOptions options = new ChromeOptions();
 //          options.addArguments("--kiosk");//FULLSCREEN FOR MAC
@@ -66,7 +74,25 @@ public class BaseTest {
             driver.get("https://www.hepsiburada.com/");
             driver.manage().window().maximize();
             driver.manage().deleteAllCookies();
-        }
+        }*/
+
+        FirefoxProfile profile = new FirefoxProfile();
+        capabilities = DesiredCapabilities.firefox();
+        capabilities.setCapability(FirefoxDriver.PROFILE,profile);
+        capabilities.setCapability("marionette",true);
+
+
+       /* ChromeOptions options = new ChromeOptions();
+        options.addArguments("start-maximized");
+        capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);*/
+
+
+        driver = new RemoteWebDriver(new URL("http://192.168.60.117:4444/wd/hub"),capabilities);
+        webDriverWait=new WebDriverWait(driver,20,250);
+        driver.get("https://www.hepsiburada.com/");
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
     }
     @BeforeStep
     public void beforeStep(ExecutionContext executionContext){
