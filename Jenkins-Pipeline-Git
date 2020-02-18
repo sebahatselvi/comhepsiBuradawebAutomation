@@ -19,19 +19,19 @@ pipeline{
          stage("Test for ubuntu"){
             steps{
                 echo "test ubuntu"
-                sleep 10
+                
             }
         }
           stage("Test for windows"){
             steps{
                 echo "test windows"
-                sleep 20
+               
             }
         }
           stage("Test extra OS"){
             steps{
                 echo "test extra OS"
-                sleep 5
+                
             }
         }
     }
