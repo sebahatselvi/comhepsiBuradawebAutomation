@@ -1,0 +1,34 @@
+pipeline{
+    agent any
+    
+ environment{
+    PATH= "/usr/local/Cellar/maven/3.6.2/libexec/bin:$PATH"}
+    stages{
+        stage("Git Checkout"){
+            steps{
+                git credentialsId: 'github', url: 'https://github.com/sebahatselvi/comhepsiBuradawebAutomation/'
+            }
+        }
+          stage("Maven Build"){
+            steps{
+                sh "mvn clean package" 
+            }
+        }
+        stage("Tests"){
+            steps{
+                parallel(
+                    ubuntu:{
+                        echo "test for ubuntu"
+                    },
+                     windows:{
+                        echo "test for windows"
+                    },
+                     mac:{
+                        echo "test for mac"
+                    }
+                    )
+            }
+        }
+        
+        }
+    }
