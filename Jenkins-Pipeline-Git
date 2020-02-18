@@ -16,6 +16,8 @@ pipeline{
                 sh "mvn clean package" 
             }
         }
+        stage('Tests')
+        {parellel{
          stage("Test for ubuntu"){
             steps{
                 echo "test ubuntu"
@@ -33,6 +35,7 @@ pipeline{
                 echo "test extra OS"
                 
             }
+        }}
         }
     }
 }
