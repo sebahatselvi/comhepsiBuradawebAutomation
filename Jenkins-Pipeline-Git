@@ -17,7 +17,9 @@ pipeline{
             }
         }
         stage('Tests')
-        {parellel{
+        {
+        parallel
+        {
          stage("Test for ubuntu"){
             steps{
                 echo "test ubuntu"
@@ -35,7 +37,8 @@ pipeline{
                 echo "test extra OS"
                 
             }
-        }}
         }
+      }
     }
+  }
 }
