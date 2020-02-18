@@ -5,6 +5,10 @@ pipeline{
             steps{
                 git credentialsId: 'github', url: 'https://github.com/sebahatselvi/comhepsiBuradawebAutomation'
             }
+             stage("Maven Build"){
+                 steps{
+                   sh "mvn clean package"
+            }
         }
     }
 }
