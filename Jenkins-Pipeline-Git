@@ -1,17 +1,19 @@
+
 pipeline{
     agent any
     
-     environment{
+ environment{
     PATH= "/usr/local/Cellar/maven/3.6.2/libexec/bin:$PATH"}
-    
     stages{
-        stage("Github checkout"){
+        stage("Git Checkout"){
             steps{
-                git credentialsId: 'github', url: 'https://github.com/sebahatselvi/comhepsiBuradawebAutomation'
+                git credentialsId: 'github', url: 'https://github.com/sebahatselvi/comhepsiBuradawebAutomation''
             }
-             stage("Maven Build"){
-                 steps{
-                   sh "mvn clean package"
+        }
+        
+         stage("Maven Build"){
+            steps{
+                sh "mvn clean package" 
             }
         }
     }
