@@ -1,0 +1,10 @@
+pipeline{
+    agent any
+    stages{
+        stage("Github checkout"){
+            steps{
+                git credentialsId: 'github', url: 'https://github.com/sebahatselvi/comhepsiBuradawebAutomation'
+            }
+        }
+    }
+}
