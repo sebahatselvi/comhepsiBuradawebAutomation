@@ -1,5 +1,9 @@
 pipeline{
     agent any
+    
+     environment{
+    PATH= "/usr/local/Cellar/maven/3.6.2/libexec/bin:$PATH"}
+    
     stages{
         stage("Github checkout"){
             steps{
